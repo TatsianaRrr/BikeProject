@@ -17,6 +17,14 @@ public class ConnectionPool implements CloseConnectionPool {
     private static final Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
     private static ConnectionPool instance;
+
+    public static synchronized ConnectionPool getInstance() throws ConnectionPoolException {
+        if (instance == null) {
+            instance = new ConnectionPool();
+        }
+        return instance;
+    }
+
     private final BlockingQueue<Connection> connectionQueue;
     private final BlockingQueue<Connection> givenAwayConQueue;
 
@@ -53,19 +61,6 @@ public class ConnectionPool implements CloseConnectionPool {
         for (int i = 0; i < poolSize; i++) {
             connectionQueue.add(getConnection());
         }
-    }
-
-    public static ConnectionPool getInstance() throws ConnectionPoolException {//Высокая производительность
-        ConnectionPool localInstance = instance;
-        if (instance == null) {
-            synchronized (ConnectionPool.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new ConnectionPool();
-                }
-            }
-        }
-        return localInstance;
     }
 
     private Connection getConnection() throws ConnectionPoolException {
@@ -106,7 +101,6 @@ public class ConnectionPool implements CloseConnectionPool {
         } else {
             logger.info("Connection is null");
         }
-
         if (resultSet != null) {
             try {
                 resultSet.close();
