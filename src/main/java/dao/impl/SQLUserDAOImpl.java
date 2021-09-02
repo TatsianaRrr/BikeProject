@@ -26,7 +26,7 @@ public class SQLUserDAOImpl implements UserDAO {
     private static final String GET_USER_BY_LOGIN = "SELECT `iduser`,`login`,`password`,`name`, `email`, `userRole` FROM `user` WHERE `login`=?";
     private static final String GET_USER_BY_ID = "SELECT `iduser`,`login`,`password`,`name`, `email`, `userRole` FROM `user` WHERE `iduser`=?";
 
-    private static Logger logger = LoggerFactory.getLogger(SQLUserDAOImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SQLUserDAOImpl.class);
 
     private static SQLUserDAOImpl instance;
 
@@ -43,8 +43,8 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> getUserByLoginAndPassword(User user) throws DAOException {//sign in
-        logger.debug("UserDAOImpl.getUserByLoginAndPassword(), input data - user {}", user);
-        logger.debug("UserDAOImpl.getUserByLoginAndPassword() start");
+        LOGGER.debug("UserDAOImpl.getUserByLoginAndPassword(), input data - user {}", user);
+        LOGGER.debug("UserDAOImpl.getUserByLoginAndPassword() start");
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -58,7 +58,7 @@ public class SQLUserDAOImpl implements UserDAO {
             resultSet = ps.executeQuery();
             if (resultSet.next()) {
                 user = mapToUser(resultSet);
-                logger.debug("UserDAOImpl.getUserByLoginAndPassword() - success");
+                LOGGER.debug("UserDAOImpl.getUserByLoginAndPassword() - success");
                 return Optional.of(user);
             } else {
                 return Optional.empty();
@@ -77,7 +77,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public User signUp(User user) throws DAOException {
-        logger.debug("UserDAOImpl.signUp(), input data - user {}", user);
+        LOGGER.debug("UserDAOImpl.signUp(), input data - user {}", user);
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -95,7 +95,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
             ps.executeUpdate();
             connection.commit();
-            logger.debug("UserDAOImpl.signUp() - success");
+            LOGGER.debug("UserDAOImpl.signUp() - success");
             return user;
         } catch (ConnectionPoolException e) {
             throw new DAOException("can't get connection in database - UserDAOImpl.signUp()", e);
@@ -115,7 +115,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public User addUser(User user) throws DAOException {
-        logger.debug("UserDAOImpl.addUser(), input data - user {}", user);
+        LOGGER.debug("UserDAOImpl.addUser(), input data - user {}", user);
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -134,7 +134,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
             ps.executeUpdate();
             connection.commit();
-            logger.debug("UserDAOImpl.addUser() - success");
+            LOGGER.debug("UserDAOImpl.addUser() - success");
             return user;
         } catch (ConnectionPoolException e) {
             throw new DAOException("can't get connection in database - UserDAOImpl.addUser()", e);
@@ -154,7 +154,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAllUsers() throws DAOException {
-        logger.debug("UserDAOImpl.getAllUsers(), have no input data");
+        LOGGER.debug("UserDAOImpl.getAllUsers(), have no input data");
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -169,7 +169,7 @@ public class SQLUserDAOImpl implements UserDAO {
                 User user = mapToUser(resultSet);
                 users.add(user);
             }
-            logger.debug("UserDAOImpl.getAllUsers() - success");
+            LOGGER.debug("UserDAOImpl.getAllUsers() - success");
             return users;
         } catch (ConnectionPoolException e) {
             throw new DAOException("can't get connection in database - UserDAOImpl.getAllUsers()", e);
@@ -184,7 +184,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> getUserByLogin(String login) throws DAOException {
-        logger.debug("UserDAOImpl.getUserByLogin(), input data - login {}", login);
+        LOGGER.debug("UserDAOImpl.getUserByLogin(), input data - login {}", login);
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -198,7 +198,7 @@ public class SQLUserDAOImpl implements UserDAO {
             resultSet = ps.executeQuery();
             if (resultSet.next()) {
                 user = mapToUser(resultSet);
-                logger.debug("UserDAOImpl.getUserByLogin() - success");
+                LOGGER.debug("UserDAOImpl.getUserByLogin() - success");
                 return Optional.of(user);
             } else {
                 return Optional.empty();
@@ -216,7 +216,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> getUserById(int id) throws DAOException {
-        logger.debug("UserDAOImpl.getUserById(), input data - id {}", id);
+        LOGGER.debug("UserDAOImpl.getUserById(), input data - id {}", id);
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -230,7 +230,7 @@ public class SQLUserDAOImpl implements UserDAO {
             resultSet = ps.executeQuery();
             if (resultSet.next()) {
                 user = mapToUser(resultSet);
-                logger.debug("UserDAOImpl.getUserById() - success");
+                LOGGER.debug("UserDAOImpl.getUserById() - success");
                 return Optional.of(user);
             } else {
                 return Optional.empty();
@@ -248,7 +248,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public User updateUser(User user) throws DAOException {
-        logger.debug("UserDAOImpl.updateUser(), input data - user {}", user);
+        LOGGER.debug("UserDAOImpl.updateUser(), input data - user {}", user);
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -268,7 +268,7 @@ public class SQLUserDAOImpl implements UserDAO {
             ps.setString(7, user.getLogin());
             ps.executeUpdate();
             connection.commit();
-            logger.debug("UserDAOImpl.updateUser() - success");
+            LOGGER.debug("UserDAOImpl.updateUser() - success");
             return user;
         } catch (ConnectionPoolException e) {
             throw new DAOException("can't get connection in database - UserDAOImpl.updateUser()", e);
@@ -288,7 +288,7 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public void deleteUserByLogin(String login) throws DAOException {
-        logger.debug("UserDAOImpl.deleteUser(), input data - login {}", login);
+        LOGGER.debug("UserDAOImpl.deleteUser(), input data - login {}", login);
         ConnectionPool connectionPool = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -302,7 +302,7 @@ public class SQLUserDAOImpl implements UserDAO {
             ps.setString(1, login);
             ps.executeUpdate();
             connection.commit();
-            logger.debug("UserDAOImpl.getUserByLogin() - success");
+            LOGGER.debug("UserDAOImpl.getUserByLogin() - success");
         } catch (ConnectionPoolException e) {
             throw new DAOException("can't get connection in database - UserDAOImpl.deleteUser()", e);
         } catch (SQLException e) {
@@ -320,7 +320,7 @@ public class SQLUserDAOImpl implements UserDAO {
     }
 
     private User mapToUser(ResultSet resultSet) throws SQLException {
-        logger.debug("UserDAOImpl.setUserParameters(), input data - resultSet {}", resultSet);
+        LOGGER.debug("UserDAOImpl.setUserParameters(), input data - resultSet {}", resultSet);
         User user = new User();
         user.setId(resultSet.getInt(1));
         user.setLogin(resultSet.getString(2));
@@ -328,8 +328,10 @@ public class SQLUserDAOImpl implements UserDAO {
         user.setName(resultSet.getString(4));
         user.setEmail(resultSet.getString(5));
         user.setUserRole(User.UserRole.valueOf(resultSet.getString(6).toUpperCase()));
-        logger.debug("UserDAOImpl.setUserParameters() - success");
+        LOGGER.debug("UserDAOImpl.setUserParameters() - success");
         return user;
     }
+
+
 }
 
