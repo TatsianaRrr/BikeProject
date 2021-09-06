@@ -10,9 +10,14 @@ import service.UserService;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Locale;
+import java.util.Objects;
+
+import static controller.servlet.RequestParameterName.LOGIN;
 import static controller.servlet.RequestParameterName.USER;
 
 
@@ -34,34 +39,30 @@ public class SignIn implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.debug("SignIn.execute(), input data - request {}, response {}", request, response);
+        LOGGER.debug(request.getHeader("User-Agent") + " try to sign in account");
         String jspPageName = JspPageName.MAIN_PAGE;
-        String login = request.getParameter(RequestParameterName.LOGIN);
+        String login = request.getParameter(LOGIN);
         String password = request.getParameter(RequestParameterName.PASSWORD);
 
-        if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
-            request.setAttribute("errorData", "enter login and password");
-            return jspPageName;
-        }
         try {
             User user = userService.signIn(login, password);
-            request.getSession().setAttribute(USER, user);
-            User.UserRole userRole = user.getUserRole();
-            switch (userRole) {
-                case USER:
-                    jspPageName = JspPageName.USER_PAGE;
-                    break;
-                case ADMIN:
-                    jspPageName = JspPageName.ADMIN;
-                    break;
-                default:
-                    throw new IllegalArgumentException(("Unknown role: " + userRole.getName()));
+            if (user.getUserRole() != null) {
+                Cookie cookieLogin = new Cookie(LOGIN, user.getLogin());
+                response.addCookie(cookieLogin);
+                request.getSession(true).setAttribute(LOGIN, user.getLogin());
+                if (user.getUserRole().getName().equals(RequestParameterName.ADMIN)) {
+                    request.getSession().setAttribute(RequestParameterName.USER_ROLE, RequestParameterName.ADMIN);
+                } else {
+                    request.getSession().setAttribute(RequestParameterName.USER_ROLE, RequestParameterName.USER);
+                }
             }
-            LOGGER.debug("SignIn.execute() - success");
+            request.getSession().setAttribute(LOGIN, user.getLogin());
+            request.getSession().setAttribute(RequestParameterName.PAGE, JspPageName.USER_PAGE);
+            jspPageName = JspPageName.USER_PAGE;
         } catch (ServiceException e) {
-            request.setAttribute(RequestParameterName.INFORMATION, e.getMessage()); //возвр из сессии обьект
-            LOGGER.error("error sign in", e);
-            jspPageName = JspPageName.MAIN_PAGE;
-        }//
+            request.setAttribute(RequestParameterName.INFORMATION, e.getCause().getMessage());
+            LOGGER.error(((String) request.getSession().getAttribute(RequestParameterName.LOGIN)), e);
+        }
         return jspPageName;
     }
 }
