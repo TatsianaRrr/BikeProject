@@ -8,6 +8,9 @@
         <title>Get bike</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <c:set var="userRole" value="${sessionScope.userRole}"/>
+        <c:set var="admin" value="admin"/>
+        <c:set var="user" value="user"/>
         <style>
             * {
                 box-sizing: border-box;
@@ -24,7 +27,7 @@
                 display: table;
             }
         </style>
-    </head>
+            </head>
     <body>
         <div class="header">
             <h1>My Bike Service</h1>
@@ -43,8 +46,12 @@
                 <a href="/bike/controller?command=get_bikes_by_year_desc">New bikes</a>
             </form>
             <a href="/bike/controller?command=log_out" class="right">Log Out</a>
-            <a href="/bike/controller?command=show_user_page" class="right">User page</a>
-            <a href="/bike/controller?command=show_admin_page" class="right">Admin page</a>
+            <a href="/bike/controller?command=show_user_page" class="right">Main page</a>
+            <c:choose>
+                           <c:when test="${userRole eq(admin)}">
+                              <a href="/bike/controller?command=show_admin_page" class="right">Admin page</a>
+                           </c:when>
+                        </c:choose>
                    </div>
         <div class="row">
             <jsp:useBean id="bike" class="bean.Bike" scope="request" />
