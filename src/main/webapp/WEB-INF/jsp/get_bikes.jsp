@@ -6,7 +6,10 @@
     <head>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_page.css" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="utf-8" charset="utf-8" />
-        <title>Get books</title>
+        <title>Get bikes</title>
+        <c:set var="userRole" value="${sessionScope.userRole}"/>
+        <c:set var="admin" value="admin"/>
+        <c:set var="user" value="user"/>
     </head>
     <body>
         <header>
@@ -19,9 +22,13 @@
         </header>
         <main>
             <div class="navbar">
-                <a href="/bike/controller?command=show_admin_page" class="right">Admin page</a>
-                <a href="/bike/controller?command=show_user_page" class="right">User page</a>
-                <a href="/bike/controller?command=log_out" class="right">Log Out</a>
+<c:choose>
+               <c:when test="${userRole eq(admin)}">
+               <a href="/bike/controller?command=show_admin_page" class="right">Admin page</a>
+               </c:when>
+               </c:choose>
+               <a href="/bike/controller?command=show_user_page" class="right">Main page</a>
+               <a href="/bike/controller?command=log_out" class="right">Log Out</a>
             </div>
             <table border="1">
                 <br />
