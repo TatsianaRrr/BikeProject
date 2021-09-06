@@ -28,12 +28,12 @@
             <h2></h2>
             <h3></h3>
             <div class="fakeimg" style="height: 60px;">
-                <form class="back" action="/bike/controller" method="post">
-                    <input type="hidden" name="command" value="show_main_page" />
-                    <input type="submit" class="b1" value=" back " />
-                    <br />
-                </form>
-            </div>
+                            <form class="back" action="/bike/controller" method="post">
+                                <input type="hidden" name="command" value="show_user_page" />
+                                <input type="submit" class="b1" value=" BACK " />
+                                <br />
+                            </form>
+                        </div>
             <br />
         </main>
         <footer></footer>

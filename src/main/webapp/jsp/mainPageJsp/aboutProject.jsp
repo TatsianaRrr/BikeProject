@@ -43,11 +43,11 @@ We always have a large assortment of bicycles in stock.
                 By developing our network, we contribute to the development of cycling and cycling culture in the Republic of Belarus.
             </h3>
             <h2>Company details</h2>
-            <h3>Living Library LLC, OGRN 1117746445640, TIN 7734658075, KPP 770301001 Postal address: 123022, Minsk, st. Tolstogo, building 13, building 41, floor 7, room 15</h3>
+            <h3>Living Library LLC, OGRN 1117746445640, TIN 7734658075, KPP 770301001 Postal address: 123022, Minsk, st. Tolstogo, building 13, floor 7, room 15</h3>
             <div class="fakeimg" style="height: 60px;">
                 <form class="back" action="/bike/controller" method="post">
-                    <input type="hidden" name="command" value="show_main_page" />
-                    <input type="submit" class="b1" value=" back " />
+                    <input type="hidden" name="command" value="show_user_page" />
+                    <input type="submit" class="b1" value=" BACK " />
                     <br />
                 </form>
             </div>

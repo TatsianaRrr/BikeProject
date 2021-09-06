@@ -47,12 +47,12 @@
                  agreement provides the User with a limited right to use it. 2.5. The right to use the Database is granted only to the User. 2.6. The User can use the Works only in the ways specified in the Agreement
              </h3>
              <div class="fakeimg" style="height: 60px;">
-                 <form class="back" action="/bike/controller" method="post">
-                     <input type="hidden" name="command" value="show_main_page" />
-                     <input type="submit" class="b1" value=" back " />
-                     <br />
-                 </form>
-             </div>
+                             <form class="back" action="/bike/controller" method="post">
+                                 <input type="hidden" name="command" value="show_user_page" />
+                                 <input type="submit" class="b1" value=" BACK " />
+                                 <br />
+                             </form>
+                         </div>
              <br />
          </main>
          <footer></footer>
