@@ -85,13 +85,13 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `bikedb`;
-INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (1, '1', '1', '1', '1', 'user');
-INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (2, '2', '2', '2', '2', 'admin');
-INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (3, '3', '3', '3', '3', 'admin');
-INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (4, '4', '4', '4', '4', 'admin');
-INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (5, '5', '5', '5', '5', 'admin');
-INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (6, '6', '6', '6', '6', 'admin');
-INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (7, '7', '7', '7', '7', 'admin');
+INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (1, 'ivanov', 'ivanov111', 'Ivanov', 'user1@gmail.com', 'user');
+INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (2, 'petrov', 'petrov222', 'Petrov', 'user2@gmail.com', 'admin');
+INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (3, 'sidorov', 'sidorov333', 'Sidorov', 'user3@gmail.com', 'admin');
+INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (4, 'fedorov', 'fedorov444', 'Fedorov', 'user4@gmail.com', 'user');
+INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (5, 'kuznetsov', 'kuznetsov555', 'Kuznetsov', 'user5@gmail.com', 'user');
+INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (6, 'fokin', 'fokin666', 'Fokin', 'user6@gmail.com', 'user');
+INSERT INTO `bikedb`.`user` (`iduser`, `login`, `password`, `name`, `email`, `userRole`) VALUES (7, 'stolyarov', 'stolyarov777', 'Stolyarov', 'user7@gmail.com', 'user');
 
 COMMIT;
 
