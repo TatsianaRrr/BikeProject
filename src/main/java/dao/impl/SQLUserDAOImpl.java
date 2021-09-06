@@ -25,6 +25,9 @@ public class SQLUserDAOImpl implements UserDAO {
     private static final String UPDATE_USER = "UPDATE `user` SET `iduser`=?, `login`=?,`password`=?, `name`=?, `email`=?, `userRole`=? WHERE `login`=?";
     private static final String GET_USER_BY_LOGIN = "SELECT `iduser`,`login`,`password`,`name`, `email`, `userRole` FROM `user` WHERE `login`=?";
     private static final String GET_USER_BY_ID = "SELECT `iduser`,`login`,`password`,`name`, `email`, `userRole` FROM `user` WHERE `iduser`=?";
+    private static final String SET_ADMIN_RIGHT = "UPDATE `user` SET `userRole`='admin' WHERE `iduser`=?";
+    private static final String SET_USER_RIGHT = "UPDATE `user` SET `userRole`='user' WHERE `iduser`=?";
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SQLUserDAOImpl.class);
 
@@ -331,7 +334,55 @@ public class SQLUserDAOImpl implements UserDAO {
         LOGGER.debug("UserDAOImpl.setUserParameters() - success");
         return user;
     }
+    @Override
+    public void setAdminRight(int idUser) throws DAOException {
+        LOGGER.debug("SQLUserDAOImpl.setAdminRight() - start, input data - idUser {}", idUser );
+        ConnectionPool connectionPool = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
+        try {
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+            ps = connection.prepareStatement(SET_ADMIN_RIGHT);
+            ps.setInt(1, idUser);
+            ps.executeUpdate();
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("can't get connection in database", e);
+        } catch (SQLException e) {
+            throw new DAOException("Operation failed in database ( set admin right)", e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, resultSet, ps);
+            }
+        }
+        LOGGER.debug("UserDAOImpl.setAdminRight() - success");
+    }
 
+    @Override
+    public void setUserRight(int idUser) throws DAOException {
+        LOGGER.debug("UserDAOImpl.setUserRight()");
+        ConnectionPool connectionPool = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
+        try {
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+            ps = connection.prepareStatement(SET_USER_RIGHT);
+            ps.setInt(1, idUser);
+            ps.executeUpdate();
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("can't get connection in database", e);
+        } catch (SQLException e) {
+            throw new DAOException("Operation failed in database (set user right)", e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, resultSet, ps);
+            }
+        }
+        LOGGER.debug("UserDAOImpl.setUserRight() - success");
+    }
 
 }
 
