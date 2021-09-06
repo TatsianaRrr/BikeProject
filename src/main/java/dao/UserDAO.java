@@ -24,4 +24,8 @@ public interface UserDAO {
 
     User updateUser(User user) throws DAOException;
 
+    public void setAdminRight(int idUser) throws DAOException;
+
+    public void setUserRight(int idUser) throws DAOException;
+
 }
