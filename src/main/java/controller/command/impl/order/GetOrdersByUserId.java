@@ -36,7 +36,7 @@ public class GetOrdersByUserId implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.debug("GetOrdersByUserId.execute(), input data - request {}, response {}", request, response);
         String jspPageName;
-       List<Order> list;
+        List<Order> list;
         try {
             String id = request.getParameter(ID_USER);//этот параметр в name admin.jsp
             list = orderService.getOrdersByUserId(Integer.parseInt(id));
@@ -44,9 +44,9 @@ public class GetOrdersByUserId implements Command {
             jspPageName = JspPageName.GET_ORDERS;
             LOGGER.debug("GetOrdersByUserId.execute() - success");
         } catch (ServiceException | NumberFormatException e) {
-            request.setAttribute(RequestParameterName.INFORMATION, e.getCause().getMessage()); //возвр из сессии обьект
+            request.setAttribute(RequestParameterName.INFORMATION, " Don't find user with this ID "); //возвр из сессии обьект
             LOGGER.error("error GetOrdersByUserId", e);
-            jspPageName = JspPageName.GET_ORDERS;
+            jspPageName = JspPageName.ADMIN;
         }
         return jspPageName;
     }
