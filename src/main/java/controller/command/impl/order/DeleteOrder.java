@@ -33,7 +33,7 @@ public class DeleteOrder implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.debug("DeleteOrder.execute(), input data - request {}, response {}", request, response);
-        String jspPageName=null;
+        String jspPageName;
         try {
             int id = Integer.parseInt(request.getParameter(RequestParameterName.ORDER_ID));
             orderService.deleteOrder(id);
@@ -42,10 +42,10 @@ public class DeleteOrder implements Command {
             request.setAttribute(RequestParameterName.ORDER_LIST, orderList);
             jspPageName = JspPageName.GET_ORDERS;
             LOGGER.debug("DeleteOrder.execute() - success");
-             } catch (ServiceException e) {
-            request.setAttribute(RequestParameterName.INFORMATION, e.getCause().getMessage()); //возвр из сессии обьект
+        } catch (ServiceException | NumberFormatException e) {
+            request.setAttribute(RequestParameterName.INFORMATION, e.getMessage()); //возвр из сессии обьект
             LOGGER.error("error DeleteOrder", e);
-            jspPageName = JspPageName.ERROR_PAGE;
+            jspPageName = JspPageName.ADMIN;
         }
         return jspPageName;
     }
