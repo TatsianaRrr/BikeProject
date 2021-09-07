@@ -44,6 +44,7 @@
                 <br />
                 <input type="submit" name="save" value="Save user" />
             </form>
+            <p class="error_message">${requestScope.information}</p>
             <br />
             <br />
             <br />
