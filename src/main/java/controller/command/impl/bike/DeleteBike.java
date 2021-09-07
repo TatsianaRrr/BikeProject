@@ -35,7 +35,7 @@ public class DeleteBike implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.debug("DeleteBike.execute(), input data - request {}, response {}", request, response);
-        String jspPageName = null;
+        String jspPageName;
         try {
             int bikeId = Integer.parseInt(request.getParameter(BIKE_ID));
             bikeService.deleteBike(bikeId);
@@ -47,7 +47,7 @@ public class DeleteBike implements Command {
         } catch (ServiceException | NumberFormatException e) {
             request.setAttribute(RequestParameterName.INFORMATION, e.getMessage()); //возвр из сессии обьект
             LOGGER.error("error DeleteBike", e);
-            jspPageName = JspPageName.ERROR_PAGE;
+            jspPageName = JspPageName.ADMIN;
         }
         return jspPageName;
     }
