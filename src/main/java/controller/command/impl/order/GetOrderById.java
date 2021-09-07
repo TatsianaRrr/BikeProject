@@ -46,7 +46,7 @@ public class GetOrderById implements Command {
         } catch (ServiceException | NumberFormatException | BusinessException e) {
             request.setAttribute(RequestParameterName.INFORMATION, e.getMessage()); //возвр из сессии обьект
             LOGGER.error("error GetOrderById", e);
-            jspPageName = JspPageName.GET_ORDER;
+            jspPageName = JspPageName.ADMIN;
         }
         return jspPageName;
     }
