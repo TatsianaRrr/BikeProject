@@ -27,14 +27,6 @@
       </header>
       <main>
          <div class="navbar">
-            <c:choose>
-               <c:when test="${userRole eq(user)}">
-                  <form id="get_all_bikes" action="/bike/controller" method="post">
-                     <input type="hidden" name="command" value="show_user_account" />
-                     <a href="/bike/controller?command=show_user_account">User account</a>
-                  </form>
-               </c:when>
-            </c:choose>
             <a href="/bike/controller?command=get_all_bikes">All bikes</a>
             <a href="/bike/controller?command=get_bikes_by_year_desc">New bikes</a>
             <c:choose>
