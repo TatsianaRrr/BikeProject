@@ -43,9 +43,9 @@ public class GetOrdersByBikeId implements Command {
             jspPageName = JspPageName.GET_ORDERS;
             LOGGER.debug("GetOrdersByBikeId.execute() - success");
         } catch (ServiceException | NumberFormatException e) {
-           // request.setAttribute(RequestParameterName.INFORMATION, e.getCause().getMessage()); //возвр из сессии обьект
+            request.setAttribute(RequestParameterName.INFORMATION, e.getMessage()); //возвр из сессии обьект
             LOGGER.error("error GetOrdersByBikeId", e);
-            jspPageName = JspPageName.GET_ORDERS;
+            jspPageName = JspPageName.ADMIN;
         }
         return jspPageName;
     }
