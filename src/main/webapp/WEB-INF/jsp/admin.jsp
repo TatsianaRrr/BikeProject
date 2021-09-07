@@ -18,10 +18,12 @@
         </header>
         <main>
             <div class="navbar">
+           <a href="/bike/controller?command=show_user_page" class="right">Main page</a>
            <a href="/bike/controller?command=log_out" class="right">Log Out</a>
             </div>
             <h2>Admin page</h2>
             <br />
+             <p class="error_message">${requestScope.information}</p>
             <br />
             <h2>Actions with users</h2>
             <br />
@@ -31,8 +33,7 @@
                 <input type="hidden" name="command" value="get_user_by_login" />
                 User Login:
                 <input type="text" name="login" size="10" />
-                <input type="submit" class="b1" value="show user" />
-                                 <br />
+                <input type="submit" class="b1" value="show user" /><br />
             </form>
             <br />
             <br />
@@ -44,7 +45,6 @@
             <h2>Actions with bikes</h2>
             <br />
             <a href="/bike/controller?command=add_bike" class="right">Add bike</a>
-
             <br /><br />
             <form action="/bike/controller" method="get">
                 <input type="hidden" name="command" value="get_bike_by_id" />
@@ -53,15 +53,7 @@
                 <input type="submit" class="b1" value="show bike" />
                 <br />
             </form>
-            <p class="error_message">${requestScope.information}</p>
-            <br />
-            <form action="/bike/controller" method="post">
-                <input type="hidden" name="command" value="update_bike" />
-                Bike ID:
-                <input type="text" name="bikeId" size="10" />
-                <input type="submit" class="b1" value="update bike" />
-                <br />
-            </form>
+
             <br />
             <form action="/bike/controller" method="post">
                 <input type="hidden" name="command" value="delete_bike" />
